@@ -11,17 +11,20 @@ function NoteList() {
   }
 
   return (
-    <ul className={styles.container}>
-      {notes.length === 0 ? (
-        <p>Empty list</p>
-      ) : (
-        notes.map((note) => {
-          return (
-            <NoteItem note={note} deleteFn={handleDeletNote} key={note.id} />
-          );
-        })
-      )}
-    </ul>
+    <section>
+      <h1>Notes:</h1>
+      <ul className={styles.container}>
+        {notes.length === 0 ? (
+          <p>Empty list</p>
+        ) : (
+          notes.map((note) => {
+            return (
+              <NoteItem note={note} deleteFn={handleDeletNote} key={note.id} />
+            );
+          })
+        )}
+      </ul>
+    </section>
   );
 }
 

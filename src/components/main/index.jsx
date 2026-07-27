@@ -1,13 +1,13 @@
-import NoteForm from "../noteForm";
-import NoteList from "../noteList";
+import Footer from "../footer";
+import Header from "../header";
 import styles from "./styles.module.css";
 
-function Main() {
+function Main({ children }) {
   return (
     <main className={styles.container}>
-      <NoteForm />
-      <h1>Notes:</h1>
-      <NoteList />
+      <Header />
+      {children}
+      <Footer />
     </main>
   );
 }
