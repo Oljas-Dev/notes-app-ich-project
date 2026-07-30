@@ -1,13 +1,20 @@
 import styles from "./styles.module.css";
-function NoteItem({ note, deleteFn }) {
+function NoteItem({ note, deleteFn, setEditingNote }) {
   return (
     <li className={styles.container}>
-      <span>{note.id}</span>
       <h4>{note.title}</h4>
-      <p>{note.text}</p>
-      <button type="button" onClick={() => deleteFn(note.id)}>
-        delete note
-      </button>
+      <div className={styles.flexCol}>
+        <p>{note.text}</p>
+
+        <div className={styles.flex}>
+          <button type="button" onClick={() => setEditingNote(note)}>
+            edit note
+          </button>
+          <button type="button" onClick={() => deleteFn(note.id)}>
+            delete note
+          </button>
+        </div>
+      </div>
     </li>
   );
 }

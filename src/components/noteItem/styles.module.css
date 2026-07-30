@@ -1,2 +1,25 @@
 .container {
+  border: 1px solid #000;
+  padding: 16px 12px;
+  text-align: left;
+}
+
+.container h4 {
+  font-weight: 600;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flex {
+  display: flex;
+  gap: 16px;
+}
+
+.flex button {
+  padding: 8px 6px;
+  width: fit-content;
 }

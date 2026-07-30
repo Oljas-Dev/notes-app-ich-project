@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
-import { addNoteAction } from "../../redux/actions/noteAction";
-function NoteForm() {
+import { addNoteAction, editNoteAction } from "../../redux/actions/noteAction";
+function NoteForm({ editingNote, setEditingNote }) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (editingNote !== null) {
+      setTitle(editingNote.title);
+      setText(editingNote.text);
+      titleRef.current?.focus();
+    } else {
+      setTitle("");
+      setText("");
+    }
+  }, [editingNote]);
 
   function handleTitle(e) {
     setTitle(e.target.value);
@@ -19,13 +31,29 @@ function NoteForm() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const newNote = {
-      id: Math.random(),
-      title,
-      text,
-    };
+    if (!title.trim() || !text.trim()) return;
 
-    dispatch(addNoteAction(newNote));
+    if (editingNote !== null) {
+      const editedNote = {
+        id: editingNote.id,
+        title,
+        text,
+      };
+
+      dispatch(editNoteAction(editedNote));
+
+      setEditingNote(null);
+    } else {
+      const newNote = {
+        id: Date.now(),
+        title,
+        text,
+      };
+
+      dispatch(addNoteAction(newNote));
+      setTitle("");
+      setText("");
+    }
   }
 
   return (
@@ -35,6 +63,7 @@ function NoteForm() {
         placeholder="title"
         onChange={handleTitle}
         value={title}
+        ref={titleRef}
       />
       <input
         type="text"
@@ -42,7 +71,7 @@ function NoteForm() {
         onChange={handleText}
         value={text}
       />
-      <button type="submit">add note</button>
+      <button type="submit">{editingNote ? "Edit" : "Add Note"}</button>
     </form>
   );
 }

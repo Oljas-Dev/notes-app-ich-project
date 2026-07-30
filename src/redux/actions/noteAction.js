@@ -11,3 +11,10 @@ export const deleteNoteAction = (id) => {
     payload: id,
   };
 };
+
+export const editNoteAction = (note) => {
+  return {
+    type: "EDIT_NOTE",
+    payload: note,
+  };
+};

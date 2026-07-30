@@ -18,6 +18,21 @@ const notesReducer = (state = initialState, action) => {
       };
     }
 
+    case "EDIT_NOTE": {
+      return {
+        ...state,
+        notes: state.notes.map((note) => {
+          return note.id === action.payload.id
+            ? {
+                ...note,
+                title: action.payload.title,
+                text: action.payload.text,
+              }
+            : note;
+        }),
+      };
+    }
+
     default:
       return state;
   }
